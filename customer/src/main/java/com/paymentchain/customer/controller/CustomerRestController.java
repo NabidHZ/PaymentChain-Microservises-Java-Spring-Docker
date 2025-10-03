@@ -26,15 +26,15 @@ class CustomerRestController {
     public ResponseEntity<?> get(@PathVariable long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isPresent()) {
-            return new ResponseEntity<>(customer.get(), HttpStatus.OK);
+            return new ResponseEntity<>(customer.get(), HttpStatus.OK);//Devuelve el cliente con el id especificado
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);//Si no encuentra el cliente con el id especificado, devuelve un error 404
         }
-    }
+    }//Devuelve un cliente por id
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> put(@PathVariable long id, @RequestBody Customer input) {
-        Optional<Customer> optionalcustomer = customerRepository.findById(id);
+    public ResponseEntity<?> put(@PathVariable long id, @RequestBody Customer input) {//El @PutMapping indica que este método maneja solicitudes HTTP PUT
+        Optional<Customer> optionalcustomer = customerRepository.findById(id); //Busca el cliente por id
         if (optionalcustomer.isPresent()) {
             Customer newcustomer = optionalcustomer.get();
             newcustomer.setName(input.getName());
